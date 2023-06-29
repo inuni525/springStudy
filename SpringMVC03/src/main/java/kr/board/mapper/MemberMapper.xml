@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+					<!-- 연결고리인 패키지명을 적어야함 -->
+<mapper namespace="kr.board.mapper.MemberMapper">
+
+	<select id="registerCheck" resultType="kr.board.entity.Member">
+   		 select * from mem_tbl where memID=#{memID}
+  	</select>
+  	
+  	<insert id="register" parameterType="kr.board.entity.Member">
+  		insert into mem_tbl(memID, memPassword, memName, memAge, memGender, memEmail, memProfile)
+  		values(#{memID}, #{memPassword}, #{memName}, #{memAge}, #{memGender}, #{memEmail}, #{memProfile})
+  	</insert>
+  	
+  	<!-- 로그인 체크 = null 이면 없는 회원, null이 아니면 있는 회원 -->
+  	<select id="memLogin" parameterType="kr.board.entity.Member"
+  						  resultType="kr.board.entity.Member">
+  		select * from mem_tbl
+  		where memID=#{memID} and memPassword=#{memPassword}
+  	</select>
+  	
+  	<update id="memUpdate" parameterType="kr.board.entity.Member">
+  		update mem_tbl set memPassword=#{memPassword}, memName=#{memName}, 
+            memAge=#{memAge},memGender=#{memGender},memEmail=#{memEmail} 
+            where memID=#{memID}
+  	</update>	
+  	
+  	<select id="getMember" resultType="kr.board.entity.Member">
+  		select * from mem_tbl 
+  		where memID=#{memID}
+  	</select>
+	  	
+  	<update id="memProfileUpdate" parameterType="kr.board.entity.Member">
+  		update mem_tbl set memProfile=#{memProfile} where memID=#{memID}
+  	</update>
+  	
+  	
+  	
+  	
+  	
+</mapper>
